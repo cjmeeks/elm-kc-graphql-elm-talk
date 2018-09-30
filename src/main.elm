@@ -8,33 +8,36 @@ import Graphql.Operation exposing (RootQuery)
 import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, hardcoded, with)
 import Html exposing (div, h1, p, pre, text)
+
+
 -- import PrintAny
+
 import RemoteData exposing (RemoteData)
 import Api.Object.Character as Character
 import Api.Query as Query
+import Api.Object
 
 
 type alias Response =
-    { hero : Character
-    , greeting : String
+    { characters : Maybe (List (Maybe ElmCharacter))
     }
 
 
+query : SelectionSet Response RootQuery
+query =
+    Query.selection Response
+        |> with (Query.characters hero)
 
 
-type alias Character =
-    { name : String
+type alias ElmCharacter =
+    { name : Maybe String
     }
 
 
-hero : SelectionSet Character Api.Interface.Character
+hero : SelectionSet ElmCharacter Api.Object.Character
 hero =
-    Character.selection Character
-        [
-        ]
+    Character.selection ElmCharacter
         |> with Character.name
-
-
 
 
 makeRequest : Cmd Msg
@@ -70,11 +73,14 @@ view model =
                 ]
             , div []
                 [ h1 [] [ text "Response" ]
-                , model |> PrintAny.view
                 ]
             ]
         ]
     }
+
+
+
+-- viewCharacter :
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
