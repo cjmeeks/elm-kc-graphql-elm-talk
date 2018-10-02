@@ -7,6 +7,7 @@ var fetch = require("node-fetch")
 var schema = buildSchema(`
     type Query {
         characters: [Character]
+        charactersMarried(id: String!): Character
     },
     type Character {  
         uid : String,
@@ -44,11 +45,21 @@ function fetchCharacters() {
 function getCharacters() {
     return fetchCharacters().then(json => json.characters);
 }
+
+function fetchCharactersMarried() {
+    return fetch(`${baseURL}/character/search`).then(res => res.json());
+}
+
+function fetchCharactersMarried() {
+    return fetchCharacters().then(json => json.characters);
+}
 var root = {
-    characters: getCharacters
+    characters: getCharacters,
+    charactersMarried: fetchCharactersMarried
 };
 // Create an express server and a GraphQL endpoint
 var app = express();
+app.use('/app', express.static('index.html'))
 app.use('/graphql', express_graphql({
     schema: schema,
     rootValue: root,
