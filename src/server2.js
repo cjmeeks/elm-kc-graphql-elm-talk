@@ -7,18 +7,18 @@ var fetch = require("node-fetch")
 var schema = buildSchema(`
     type Query {
         characters: [Character]
-        charactersMarried(id: String!): Character
+        charactersMarried(married: String!): [Character]
     },
     type Character {  
-        uid : String,
-        name : String,
+        uid : String!,
+        name : String!,
         gender : String,
         yearOfBirth : String,
         monthOfBirth : String,
         dayOfBirth : String,
         placeOfBirth : String,
         yearOfDeath : String,
-        monthOfDeath : String,
+        monthOfDeath : String, 
         dayOfDeath : String,
         placeOfDeath : String,
         height : String,
@@ -46,16 +46,23 @@ function getCharacters() {
     return fetchCharacters().then(json => json.characters);
 }
 
-function fetchCharactersMarried() {
-    return fetch(`${baseURL}/character/search`).then(res => res.json());
+function fetchCharactersMarried(marrried) {
+    var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    return fetch(`${baseURL}/character/search`, { method: 'POST', body: 'name=Picard&title=Picard', headers: headers }).then(res => res.json());
 }
 
-function fetchCharactersMarried() {
-    return fetchCharacters().then(json => json.characters);
+function getCharactersMarried(args) {
+    if (args.married) {
+        return fetchCharactersMarried(args.married).then(json => json.characters);
+    } else {
+        return [];
+    }
 }
 var root = {
     characters: getCharacters,
-    charactersMarried: fetchCharactersMarried
+    charactersMarried: getCharactersMarried
 };
 // Create an express server and a GraphQL endpoint
 var app = express();

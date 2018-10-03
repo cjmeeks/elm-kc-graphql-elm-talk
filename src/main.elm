@@ -12,7 +12,7 @@ import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
 import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, hardcoded, with)
-import Html exposing (Html, div, h1, li, p, pre, text, ul,table, tr,td)
+import Html exposing (Html, div, h1, li, p, pre, table, td, text, tr, ul)
 import Html.Attributes exposing (..)
 import RemoteData exposing (RemoteData(..))
 
@@ -27,14 +27,16 @@ query =
     Query.selection Response
         |> with (Query.characters charactersQuery)
 
+
 queryForMarried : SelectionSet Response RootQuery
 queryForMarried =
     Query.selection Response
-        |> with (Query.characters charactersQuery)
+        |> with (Query.charactersMarried { married = "MARRIED" } charactersQuery)
+
 
 type alias ElmCharacter =
-    { uid : Maybe String
-    , name : Maybe String
+    { uid : String
+    , name : String
     , gender : Maybe String
     , yearOfBirth : Maybe String
     , monthOfBirth : Maybe String
@@ -57,8 +59,8 @@ type alias ElmCharacter =
 
 
 initCharacter =
-    { uid = Nothing
-    , name = Nothing
+    { uid = ""
+    , name = ""
     , gender = Nothing
     , yearOfBirth = Nothing
     , monthOfBirth = Nothing
@@ -86,7 +88,7 @@ charactersQuery =
         |> with Character.uid
         |> with Character.name
         |> with Character.gender
-        |> with Character.yearOfBirth
+        |> with Character.yearOfBirth 
         |> with Character.monthOfBirth
         |> with Character.dayOfBirth
         |> with Character.placeOfBirth
@@ -107,10 +109,14 @@ charactersQuery =
 
 makeRequest : Cmd Msg
 makeRequest =
-    query
+    queryForMarried
         |> Graphql.Http.queryRequest "http://localhost:4000/graphql"
         |> Graphql.Http.send (RemoteData.fromResult >> GotResponse)
---/node_modules/bin/elm-graphql https://elm-graphql.herokuapp.com --base Swapi --output examples/src
+
+
+
+--npm run elm-graphql http://localhost:4000/graphql --base Stapi --output src
+
 
 type Msg
     = GotResponse (RemoteData (Graphql.Http.Error Response) Response)
@@ -141,8 +147,8 @@ view model =
                 , pre [] [ text (Document.serializeQuery query) ]
                 ]
             , div []
-                    [ table [style "border" "1px solid"]  <| List.map viewCharacter model.chars
-                    ]
+                [ table [ style "border" "1px solid" ] <| List.map viewCharacter model.chars
+                ]
             ]
         ]
     }
@@ -151,17 +157,17 @@ view model =
 viewCharacter : ElmCharacter -> Html Msg
 viewCharacter character =
     tr []
-        [ td [style "border" "1px solid"] [ text <| Maybe.withDefault "nothing" character.uid ]
-        , td [style "border" "1px solid"] [ text <| Maybe.withDefault "nothing" character.name ]
-        , td [style "border" "1px solid"] [ text <| Maybe.withDefault "nothing" character.gender ]
-        , td [style "border" "1px solid"] [ text <| Maybe.withDefault "nothing" character.placeOfBirth ]
-        , td [style "border" "1px solid"] [ text <| Maybe.withDefault "nothing" character.placeOfDeath ]
-        , td [style "border" "1px solid"] [ text <| Maybe.withDefault "nothing" character.height ]
-        , td [style "border" "1px solid"] [ text <| Maybe.withDefault "nothing" character.weight ]
-        , td [style "border" "1px solid"] [ text <| Maybe.withDefault "nothing" character.maritalStatus ]
-        , td [style "border" "1px solid"] [ text <| Maybe.withDefault "nothing" character.serialNumber ]
-        , td [style "border" "1px solid"] [ text <| Maybe.withDefault "nothing" character.hologramActivationDate ]
-        , td [style "border" "1px solid"] [ text <| Maybe.withDefault "nothing" character.hologramStatus ]
+        [ td [ style "border" "1px solid" ] [ text character.uid ]
+        , td [ style "border" "1px solid" ] [ text character.name ]
+        , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.gender ]
+        , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.yearOfBirth ]
+        , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.yearOfDeath ]
+        , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.height ]
+        , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.weight ]
+        , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.maritalStatus ]
+        , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.serialNumber ]
+        , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.hologramActivationDate ]
+        , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.hologramStatus ]
         ]
 
 
@@ -189,12 +195,7 @@ getChars data =
                 Just list ->
                     List.filter
                         (\x ->
-                            case x.name of
-                                Just _ ->
-                                    True
-
-                                Nothing ->
-                                    False
+                            x.name /= ""
                         )
                     <|
                         List.map

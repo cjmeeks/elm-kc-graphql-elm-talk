@@ -33,3 +33,10 @@ selection constructor =
 characters : SelectionSet decodesTo Api.Object.Character -> Field (Maybe (List (Maybe decodesTo))) RootQuery
 characters object_ =
       Object.selectionField "characters" [] (object_) (identity >> Decode.nullable >> Decode.list >> Decode.nullable)
+
+
+type alias CharactersMarriedRequiredArguments = { married : String }
+
+charactersMarried : CharactersMarriedRequiredArguments -> SelectionSet decodesTo Api.Object.Character -> Field (Maybe (List (Maybe decodesTo))) RootQuery
+charactersMarried requiredArgs object_ =
+      Object.selectionField "charactersMarried" [ Argument.required "married" requiredArgs.married (Encode.string) ] (object_) (identity >> Decode.nullable >> Decode.list >> Decode.nullable)

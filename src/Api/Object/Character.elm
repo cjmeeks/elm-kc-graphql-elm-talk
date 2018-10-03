@@ -22,14 +22,14 @@ import Graphql.Internal.Encode as Encode exposing (Value)
 selection : (a -> constructor) -> SelectionSet (a -> constructor) Api.Object.Character
 selection constructor =
     Object.selection constructor
-uid : Field (Maybe String) Api.Object.Character
+uid : Field String Api.Object.Character
 uid =
-      Object.fieldDecoder "uid" [] (Decode.string |> Decode.nullable)
+      Object.fieldDecoder "uid" [] (Decode.string)
 
 
-name : Field (Maybe String) Api.Object.Character
+name : Field String Api.Object.Character
 name =
-      Object.fieldDecoder "name" [] (Decode.string |> Decode.nullable)
+      Object.fieldDecoder "name" [] (Decode.string)
 
 
 gender : Field (Maybe String) Api.Object.Character
