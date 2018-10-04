@@ -12,13 +12,14 @@ import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
 import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, hardcoded, with)
-import Html exposing (Html, div, h1, li, p, pre, table, td, text, tr, ul)
+import Html exposing (Html, button, div, h1, input, li, p, pre, table, td, text, tr, ul)
 import Html.Attributes exposing (..)
+import Html.Events
 import RemoteData exposing (RemoteData(..))
 
 
 type alias Response =
-    { characters : Maybe (List (Maybe ElmCharacter))
+    { characters : Maybe (List ElmCharacter)
     }
 
 
@@ -28,10 +29,10 @@ query =
         |> with (Query.characters charactersQuery)
 
 
-queryForMarried : SelectionSet Response RootQuery
-queryForMarried =
+queryWithName : String -> SelectionSet Response RootQuery
+queryWithName queryStr =
     Query.selection Response
-        |> with (Query.charactersMarried { married = "MARRIED" } charactersQuery)
+        |> with (Query.charactersName { name = queryStr } charactersQuery)
 
 
 type alias ElmCharacter =
@@ -88,7 +89,7 @@ charactersQuery =
         |> with Character.uid
         |> with Character.name
         |> with Character.gender
-        |> with Character.yearOfBirth 
+        |> with Character.yearOfBirth
         |> with Character.monthOfBirth
         |> with Character.dayOfBirth
         |> with Character.placeOfBirth
@@ -107,9 +108,16 @@ charactersQuery =
         |> with Character.hologramDateStatus
 
 
+makeNameRequest : String -> Cmd Msg
+makeNameRequest queryStr =
+    queryWithName queryStr
+        |> Graphql.Http.queryRequest "http://localhost:4000/graphql"
+        |> Graphql.Http.send (RemoteData.fromResult >> GotResponse)
+
+
 makeRequest : Cmd Msg
 makeRequest =
-    queryForMarried
+    query
         |> Graphql.Http.queryRequest "http://localhost:4000/graphql"
         |> Graphql.Http.send (RemoteData.fromResult >> GotResponse)
 
@@ -120,11 +128,15 @@ makeRequest =
 
 type Msg
     = GotResponse (RemoteData (Graphql.Http.Error Response) Response)
+    | Search
+    | SearchInput String
 
 
 type alias Model =
     { data : RemoteData (Graphql.Http.Error Response) Response
     , chars : List ElmCharacter
+    , query : String
+    , currentGraphqlQuery : Maybe (SelectionSet Response RootQuery)
     }
 
 
@@ -132,6 +144,8 @@ init : () -> ( Model, Cmd Msg )
 init _ =
     ( { data = RemoteData.Loading
       , chars = []
+      , query = ""
+      , currentGraphqlQuery = Nothing
       }
     , makeRequest
     )
@@ -139,13 +153,18 @@ init _ =
 
 view : Model -> Browser.Document Msg
 view model =
-    { title = "Starwars Demo"
+    let
+        curQuery =
+            Maybe.withDefault query model.currentGraphqlQuery
+    in
+    { title = "Star Trek API Demo"
     , body =
         [ div []
             [ div []
                 [ h1 [] [ text "Generated Query" ]
-                , pre [] [ text (Document.serializeQuery query) ]
+                , pre [] [ text (Document.serializeQuery curQuery) ]
                 ]
+            , div [] [ h1 [] [ text "Search By Name" ], input [ value model.query, Html.Events.onInput SearchInput ] [], button [ Html.Events.onClick Search ] [ text "Search" ] ]
             , div []
                 [ table [ style "border" "1px solid" ] <| List.map viewCharacter model.chars
                 ]
@@ -177,40 +196,29 @@ update msg model =
         GotResponse response ->
             ( { model | data = response, chars = getChars response }, Cmd.none )
 
+        Search ->
+            let
+                ( currentQuery, cmd ) =
+                    if String.isEmpty model.query then
+                        ( query, makeRequest )
+
+                    else
+                        ( queryWithName model.query, makeNameRequest model.query )
+            in
+            ( { model | currentGraphqlQuery = Just currentQuery }, cmd )
+
+        SearchInput str ->
+            ( { model | query = str }, Cmd.none )
+
 
 getChars : RemoteData (Graphql.Http.Error Response) Response -> List ElmCharacter
 getChars data =
     case data of
-        NotAsked ->
-            []
-
-        Loading ->
-            []
-
-        Failure err ->
-            []
-
         Success response ->
-            case response.characters of
-                Just list ->
-                    List.filter
-                        (\x ->
-                            x.name /= ""
-                        )
-                    <|
-                        List.map
-                            (\x ->
-                                case x of
-                                    Just b ->
-                                        b
+            Maybe.withDefault [] response.characters
 
-                                    Nothing ->
-                                        initCharacter
-                            )
-                            list
-
-                Nothing ->
-                    []
+        _ ->
+            []
 
 
 main : Program () Model Msg

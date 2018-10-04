@@ -30,13 +30,13 @@ functions from `Graphql.Http`.
 selection : (a -> constructor) -> SelectionSet (a -> constructor) RootQuery
 selection constructor =
     Object.selection constructor
-characters : SelectionSet decodesTo Api.Object.Character -> Field (Maybe (List (Maybe decodesTo))) RootQuery
+characters : SelectionSet decodesTo Api.Object.Character -> Field (Maybe (List decodesTo)) RootQuery
 characters object_ =
-      Object.selectionField "characters" [] (object_) (identity >> Decode.nullable >> Decode.list >> Decode.nullable)
+      Object.selectionField "characters" [] (object_) (identity >> Decode.list >> Decode.nullable)
 
 
-type alias CharactersMarriedRequiredArguments = { married : String }
+type alias CharactersNameRequiredArguments = { name : String }
 
-charactersMarried : CharactersMarriedRequiredArguments -> SelectionSet decodesTo Api.Object.Character -> Field (Maybe (List (Maybe decodesTo))) RootQuery
-charactersMarried requiredArgs object_ =
-      Object.selectionField "charactersMarried" [ Argument.required "married" requiredArgs.married (Encode.string) ] (object_) (identity >> Decode.nullable >> Decode.list >> Decode.nullable)
+charactersName : CharactersNameRequiredArguments -> SelectionSet decodesTo Api.Object.Character -> Field (Maybe (List decodesTo)) RootQuery
+charactersName requiredArgs object_ =
+      Object.selectionField "charactersName" [ Argument.required "name" requiredArgs.name (Encode.string) ] (object_) (identity >> Decode.list >> Decode.nullable)
