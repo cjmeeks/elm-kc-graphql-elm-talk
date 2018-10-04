@@ -5199,19 +5199,18 @@ var dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder = F3(
 			decoder);
 	});
 var elm$json$Json$Decode$string = _Json_decodeString;
-var author$project$Api$Object$Character$gender = A3(
+var author$project$Api$Object$Character$name = A3(
 	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'gender',
+	'name',
 	_List_Nil,
 	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$name = A3(dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder, 'name', _List_Nil, elm$json$Json$Decode$string);
 var author$project$Api$Object$Character$selection = function (constructor) {
 	return dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$selection(constructor);
 };
 var author$project$Api$Object$Character$uid = A3(dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder, 'uid', _List_Nil, elm$json$Json$Decode$string);
-var author$project$Main$ElmCharacter = F3(
-	function (uid, name, gender) {
-		return {gender: gender, name: name, uid: uid};
+var author$project$Main$ElmCharacter = F2(
+	function (uid, name) {
+		return {name: name, uid: uid};
 	});
 var dillonkearns$elm_graphql$Graphql$RawField$name = function (field) {
 	if (field.$ === 'Composite') {
@@ -5267,19 +5266,16 @@ var dillonkearns$elm_graphql$Graphql$SelectionSet$with = F2(
 				A2(elm$json$Json$Decode$field, decodeCamelCaseName, fieldDecoder),
 				objectDecoder));
 	});
-var author$project$Main$charactersQuery = A2(
+var author$project$Main$characterSelection = A2(
 	dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-	author$project$Api$Object$Character$gender,
+	author$project$Api$Object$Character$name,
 	A2(
 		dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-		author$project$Api$Object$Character$name,
-		A2(
-			dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-			author$project$Api$Object$Character$uid,
-			author$project$Api$Object$Character$selection(author$project$Main$ElmCharacter))));
+		author$project$Api$Object$Character$uid,
+		author$project$Api$Object$Character$selection(author$project$Main$ElmCharacter)));
 var author$project$Main$query = A2(
 	dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-	author$project$Api$Query$characters(author$project$Main$charactersQuery),
+	author$project$Api$Query$characters(author$project$Main$characterSelection),
 	author$project$Api$Query$selection(author$project$Main$Response));
 var dillonkearns$elm_graphql$Graphql$Document$decoder = function (_n0) {
 	var fields = _n0.a;
@@ -6845,7 +6841,7 @@ var author$project$Main$queryWithName = function (queryStr) {
 		A2(
 			author$project$Api$Query$charactersName,
 			{name: queryStr},
-			author$project$Main$charactersQuery),
+			author$project$Main$characterSelection),
 		author$project$Api$Query$selection(author$project$Main$Response));
 };
 var author$project$Main$makeNameRequest = function (queryStr) {
@@ -6943,18 +6939,8 @@ var author$project$Main$viewCharacter = function (character) {
 					]),
 				_List_fromArray(
 					[
-						elm$html$Html$text(character.name)
-					])),
-				A2(
-				elm$html$Html$td,
-				_List_fromArray(
-					[
-						A2(elm$html$Html$Attributes$style, 'border', '1px solid')
-					]),
-				_List_fromArray(
-					[
 						elm$html$Html$text(
-						A2(elm$core$Maybe$withDefault, 'nothing', character.gender))
+						A2(elm$core$Maybe$withDefault, 'nothing', character.name))
 					]))
 			]));
 };

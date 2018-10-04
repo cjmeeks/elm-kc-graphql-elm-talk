@@ -23,31 +23,12 @@ type alias Response =
     }
 
 
-queryWithName : String -> SelectionSet Response RootQuery
-queryWithName queryStr =
-    Query.selection Response
-        |> with (Query.charactersName { name = queryStr } charactersQuery)
-
-
-charactersQuery : SelectionSet ElmCharacter Api.Object.Character
-charactersQuery =
-    Character.selection ElmCharacter
-        |> with Character.uid
-        |> with Character.name
-        |> with Character.gender
-
-
-query : SelectionSet Response RootQuery
-query =
-    Query.selection Response
-        |> with (Query.characters charactersQuery)
-
-
 type alias ElmCharacter =
     { uid : String
-    , name : String
-    , gender : Maybe String
+    , name : Maybe String
 
+    -- , gender : Maybe String
+    -- , height : Maybe String
     -- , yearOfBirth : Maybe String
     -- , monthOfBirth : Maybe String
     -- , dayOfBirth : Maybe String
@@ -56,7 +37,6 @@ type alias ElmCharacter =
     -- , monthOfDeath : Maybe String
     -- , dayOfDeath : Maybe String
     -- , placeOfDeath : Maybe String
-    -- , height : Maybe String
     -- , weight : Maybe String
     -- , deceased : Maybe String
     -- , bloodType : Maybe String
@@ -70,9 +50,10 @@ type alias ElmCharacter =
 
 initCharacter =
     { uid = ""
-    , name = ""
-    , gender = Nothing
+    , name = Nothing
 
+    -- , gender = Nothing
+    -- , height = Nothing
     -- , yearOfBirth = Nothing
     -- , monthOfBirth = Nothing
     -- , dayOfBirth = Nothing
@@ -81,7 +62,6 @@ initCharacter =
     -- , monthOfDeath = Nothing
     -- , dayOfDeath = Nothing
     -- , placeOfDeath = Nothing
-    -- , height = Nothing
     -- , weight = Nothing
     -- , deceased = Nothing
     -- , bloodType = Nothing
@@ -93,7 +73,28 @@ initCharacter =
     }
 
 
+query : SelectionSet Response RootQuery
+query =
+    Query.selection Response
+        |> with (Query.characters characterSelection)
 
+
+queryWithName : String -> SelectionSet Response RootQuery
+queryWithName queryStr =
+    Query.selection Response
+        |> with (Query.charactersName { name = queryStr } characterSelection)
+
+
+characterSelection : SelectionSet ElmCharacter Api.Object.Character
+characterSelection =
+    Character.selection ElmCharacter
+        |> with Character.uid
+        |> with Character.name
+
+
+
+-- |> with Character.gender
+-- |> with Character.height
 -- |> with Character.yearOfBirth
 -- |> with Character.monthOfBirth
 -- |> with Character.dayOfBirth
@@ -102,7 +103,6 @@ initCharacter =
 -- |> with Character.monthOfDeath
 -- |> with Character.dayOfDeath
 -- |> with Character.placeOfDeath
--- |> with Character.height
 -- |> with Character.weight
 -- |> with Character.deceased
 -- |> with Character.bloodType
@@ -162,29 +162,29 @@ view model =
         curQuery =
             Maybe.withDefault query model.currentGraphqlQuery
     in
-        { title = "Star Trek API Demo"
-        , body =
+    { title = "Star Trek API Demo"
+    , body =
+        [ div []
             [ div []
-                [ div []
-                    [ h1 [] [ text "Generated Query" ]
-                    , pre [] [ text (Document.serializeQuery curQuery) ]
-                    ]
-                , div [] [ h1 [] [ text "Search By Name" ], input [ value model.query, Html.Events.onInput SearchInput ] [], button [ Html.Events.onClick Search ] [ text "Search" ] ]
-                , div []
-                    [ table [ style "border" "1px solid" ] <| List.map viewCharacter model.chars
-                    ]
+                [ h1 [] [ text "Generated Query" ]
+                , pre [] [ text (Document.serializeQuery curQuery) ]
+                ]
+            , div [] [ h1 [] [ text "Search By Name" ], input [ value model.query, Html.Events.onInput SearchInput ] [], button [ Html.Events.onClick Search ] [ text "Search" ] ]
+            , div []
+                [ table [ style "border" "1px solid" ] <| List.map viewCharacter model.chars
                 ]
             ]
-        }
+        ]
+    }
 
 
 viewCharacter : ElmCharacter -> Html Msg
 viewCharacter character =
     tr []
         [ td [ style "border" "1px solid" ] [ text character.uid ]
-        , td [ style "border" "1px solid" ] [ text character.name ]
-        , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.gender ]
+        , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.name ]
 
+        -- , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.gender ]
         -- , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.yearOfBirth ]
         -- , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.yearOfDeath ]
         -- , td [ style "border" "1px solid" ] [ text <| Maybe.withDefault "nothing" character.height ]
@@ -207,10 +207,11 @@ update msg model =
                 ( currentQuery, cmd ) =
                     if String.isEmpty model.query then
                         ( query, makeRequest )
+
                     else
                         ( queryWithName model.query, makeNameRequest model.query )
             in
-                ( { model | currentGraphqlQuery = Just currentQuery }, cmd )
+            ( { model | currentGraphqlQuery = Just currentQuery }, cmd )
 
         SearchInput str ->
             ( { model | query = str }, Cmd.none )

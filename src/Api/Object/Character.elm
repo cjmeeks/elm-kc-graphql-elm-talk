@@ -27,9 +27,9 @@ uid =
       Object.fieldDecoder "uid" [] (Decode.string)
 
 
-name : Field String Api.Object.Character
+name : Field (Maybe String) Api.Object.Character
 name =
-      Object.fieldDecoder "name" [] (Decode.string)
+      Object.fieldDecoder "name" [] (Decode.string |> Decode.nullable)
 
 
 gender : Field (Maybe String) Api.Object.Character

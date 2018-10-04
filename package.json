@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "elm-graphql": "./node_modules/.bin/elm-graphql"
+    "elm-graphql": "./node_modules/.bin/elm-graphql",
+    "start": "node src/server.js",
+    "generate_elm": "elm-graphql http://localhost:4000/graphql --base Stapi --output src",
+    "make_elm": "elm make src/main.elm"
   },
   "author": "",
   "license": "ISC",

@@ -11,7 +11,7 @@ var schema = buildSchema(`
     },
     type Character {  
         uid : String!,
-        name : String!,
+        name : String,
         gender : String,
         yearOfBirth : String,
         monthOfBirth : String,
