@@ -5164,10 +5164,7 @@ var author$project$Api$Query$characters = function (object_) {
 		A2(
 			elm$core$Basics$composeR,
 			elm$core$Basics$identity,
-			A2(
-				elm$core$Basics$composeR,
-				elm$json$Json$Decode$nullable,
-				A2(elm$core$Basics$composeR, elm$json$Json$Decode$list, elm$json$Json$Decode$nullable))));
+			A2(elm$core$Basics$composeR, elm$json$Json$Decode$list, elm$json$Json$Decode$nullable)));
 };
 var dillonkearns$elm_graphql$Graphql$SelectionSet$SelectionSet = F2(
 	function (a, b) {
@@ -5202,142 +5199,20 @@ var dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder = F3(
 			decoder);
 	});
 var elm$json$Json$Decode$string = _Json_decodeString;
-var author$project$Api$Object$Character$bloodType = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'bloodType',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$dayOfBirth = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'dayOfBirth',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$dayOfDeath = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'dayOfDeath',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$deceased = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'deceased',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
 var author$project$Api$Object$Character$gender = A3(
 	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
 	'gender',
 	_List_Nil,
 	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$height = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'height',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$hologramActivationDate = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'hologramActivationDate',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$hologramDateStatus = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'hologramDateStatus',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$hologramStatus = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'hologramStatus',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$maritalStatus = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'maritalStatus',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$monthOfBirth = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'monthOfBirth',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$monthOfDeath = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'monthOfDeath',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
 var author$project$Api$Object$Character$name = A3(dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder, 'name', _List_Nil, elm$json$Json$Decode$string);
-var author$project$Api$Object$Character$placeOfBirth = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'placeOfBirth',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$placeOfDeath = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'placeOfDeath',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
 var author$project$Api$Object$Character$selection = function (constructor) {
 	return dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$selection(constructor);
 };
-var author$project$Api$Object$Character$serialNumber = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'serialNumber',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
 var author$project$Api$Object$Character$uid = A3(dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder, 'uid', _List_Nil, elm$json$Json$Decode$string);
-var author$project$Api$Object$Character$weight = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'weight',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$yearOfBirth = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'yearOfBirth',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Api$Object$Character$yearOfDeath = A3(
-	dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$fieldDecoder,
-	'yearOfDeath',
-	_List_Nil,
-	elm$json$Json$Decode$nullable(elm$json$Json$Decode$string));
-var author$project$Main$ElmCharacter = function (uid) {
-	return function (name) {
-		return function (gender) {
-			return function (yearOfBirth) {
-				return function (monthOfBirth) {
-					return function (dayOfBirth) {
-						return function (placeOfBirth) {
-							return function (yearOfDeath) {
-								return function (monthOfDeath) {
-									return function (dayOfDeath) {
-										return function (placeOfDeath) {
-											return function (height) {
-												return function (weight) {
-													return function (deceased) {
-														return function (bloodType) {
-															return function (maritalStatus) {
-																return function (serialNumber) {
-																	return function (hologramActivationDate) {
-																		return function (hologramStatus) {
-																			return function (hologramDateStatus) {
-																				return {bloodType: bloodType, dayOfBirth: dayOfBirth, dayOfDeath: dayOfDeath, deceased: deceased, gender: gender, height: height, hologramActivationDate: hologramActivationDate, hologramDateStatus: hologramDateStatus, hologramStatus: hologramStatus, maritalStatus: maritalStatus, monthOfBirth: monthOfBirth, monthOfDeath: monthOfDeath, name: name, placeOfBirth: placeOfBirth, placeOfDeath: placeOfDeath, serialNumber: serialNumber, uid: uid, weight: weight, yearOfBirth: yearOfBirth, yearOfDeath: yearOfDeath};
-																			};
-																		};
-																	};
-																};
-															};
-														};
-													};
-												};
-											};
-										};
-									};
-								};
-							};
-						};
-					};
-				};
-			};
-		};
-	};
-};
+var author$project$Main$ElmCharacter = F3(
+	function (uid, name, gender) {
+		return {gender: gender, name: name, uid: uid};
+	});
 var dillonkearns$elm_graphql$Graphql$RawField$name = function (field) {
 	if (field.$ === 'Composite') {
 		var fieldName = field.a;
@@ -5394,65 +5269,14 @@ var dillonkearns$elm_graphql$Graphql$SelectionSet$with = F2(
 	});
 var author$project$Main$charactersQuery = A2(
 	dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-	author$project$Api$Object$Character$hologramDateStatus,
+	author$project$Api$Object$Character$gender,
 	A2(
 		dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-		author$project$Api$Object$Character$hologramStatus,
+		author$project$Api$Object$Character$name,
 		A2(
 			dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-			author$project$Api$Object$Character$hologramActivationDate,
-			A2(
-				dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-				author$project$Api$Object$Character$serialNumber,
-				A2(
-					dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-					author$project$Api$Object$Character$maritalStatus,
-					A2(
-						dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-						author$project$Api$Object$Character$bloodType,
-						A2(
-							dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-							author$project$Api$Object$Character$deceased,
-							A2(
-								dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-								author$project$Api$Object$Character$weight,
-								A2(
-									dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-									author$project$Api$Object$Character$height,
-									A2(
-										dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-										author$project$Api$Object$Character$placeOfDeath,
-										A2(
-											dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-											author$project$Api$Object$Character$dayOfDeath,
-											A2(
-												dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-												author$project$Api$Object$Character$monthOfDeath,
-												A2(
-													dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-													author$project$Api$Object$Character$yearOfDeath,
-													A2(
-														dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-														author$project$Api$Object$Character$placeOfBirth,
-														A2(
-															dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-															author$project$Api$Object$Character$dayOfBirth,
-															A2(
-																dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-																author$project$Api$Object$Character$monthOfBirth,
-																A2(
-																	dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-																	author$project$Api$Object$Character$yearOfBirth,
-																	A2(
-																		dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-																		author$project$Api$Object$Character$gender,
-																		A2(
-																			dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-																			author$project$Api$Object$Character$name,
-																			A2(
-																				dillonkearns$elm_graphql$Graphql$SelectionSet$with,
-																				author$project$Api$Object$Character$uid,
-																				author$project$Api$Object$Character$selection(author$project$Main$ElmCharacter)))))))))))))))))))));
+			author$project$Api$Object$Character$uid,
+			author$project$Api$Object$Character$selection(author$project$Main$ElmCharacter))));
 var author$project$Main$query = A2(
 	dillonkearns$elm_graphql$Graphql$SelectionSet$with,
 	author$project$Api$Query$characters(author$project$Main$charactersQuery),
@@ -6974,32 +6798,10 @@ var author$project$Main$init = function (_n0) {
 		{chars: _List_Nil, currentGraphqlQuery: elm$core$Maybe$Nothing, data: krisajenkins$remotedata$RemoteData$Loading, query: ''},
 		author$project$Main$makeRequest);
 };
-var author$project$Main$initCharacter = {bloodType: elm$core$Maybe$Nothing, dayOfBirth: elm$core$Maybe$Nothing, dayOfDeath: elm$core$Maybe$Nothing, deceased: elm$core$Maybe$Nothing, gender: elm$core$Maybe$Nothing, height: elm$core$Maybe$Nothing, hologramActivationDate: elm$core$Maybe$Nothing, hologramDateStatus: elm$core$Maybe$Nothing, hologramStatus: elm$core$Maybe$Nothing, maritalStatus: elm$core$Maybe$Nothing, monthOfBirth: elm$core$Maybe$Nothing, monthOfDeath: elm$core$Maybe$Nothing, name: '', placeOfBirth: elm$core$Maybe$Nothing, placeOfDeath: elm$core$Maybe$Nothing, serialNumber: elm$core$Maybe$Nothing, uid: '', weight: elm$core$Maybe$Nothing, yearOfBirth: elm$core$Maybe$Nothing, yearOfDeath: elm$core$Maybe$Nothing};
 var author$project$Main$getChars = function (data) {
 	if (data.$ === 'Success') {
 		var response = data.a;
-		var _n1 = response.characters;
-		if (_n1.$ === 'Just') {
-			var list = _n1.a;
-			return A2(
-				elm$core$List$filter,
-				function (x) {
-					return x.name !== '';
-				},
-				A2(
-					elm$core$List$map,
-					function (x) {
-						if (x.$ === 'Just') {
-							var b = x.a;
-							return b;
-						} else {
-							return author$project$Main$initCharacter;
-						}
-					},
-					list));
-		} else {
-			return _List_Nil;
-		}
+		return A2(elm$core$Maybe$withDefault, _List_Nil, response.characters);
 	} else {
 		return _List_Nil;
 	}
@@ -7035,10 +6837,7 @@ var author$project$Api$Query$charactersName = F2(
 			A2(
 				elm$core$Basics$composeR,
 				elm$core$Basics$identity,
-				A2(
-					elm$core$Basics$composeR,
-					elm$json$Json$Decode$nullable,
-					A2(elm$core$Basics$composeR, elm$json$Json$Decode$list, elm$json$Json$Decode$nullable))));
+				A2(elm$core$Basics$composeR, elm$json$Json$Decode$list, elm$json$Json$Decode$nullable)));
 	});
 var author$project$Main$queryWithName = function (queryStr) {
 	return A2(
@@ -7156,94 +6955,6 @@ var author$project$Main$viewCharacter = function (character) {
 					[
 						elm$html$Html$text(
 						A2(elm$core$Maybe$withDefault, 'nothing', character.gender))
-					])),
-				A2(
-				elm$html$Html$td,
-				_List_fromArray(
-					[
-						A2(elm$html$Html$Attributes$style, 'border', '1px solid')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(
-						A2(elm$core$Maybe$withDefault, 'nothing', character.yearOfBirth))
-					])),
-				A2(
-				elm$html$Html$td,
-				_List_fromArray(
-					[
-						A2(elm$html$Html$Attributes$style, 'border', '1px solid')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(
-						A2(elm$core$Maybe$withDefault, 'nothing', character.yearOfDeath))
-					])),
-				A2(
-				elm$html$Html$td,
-				_List_fromArray(
-					[
-						A2(elm$html$Html$Attributes$style, 'border', '1px solid')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(
-						A2(elm$core$Maybe$withDefault, 'nothing', character.height))
-					])),
-				A2(
-				elm$html$Html$td,
-				_List_fromArray(
-					[
-						A2(elm$html$Html$Attributes$style, 'border', '1px solid')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(
-						A2(elm$core$Maybe$withDefault, 'nothing', character.weight))
-					])),
-				A2(
-				elm$html$Html$td,
-				_List_fromArray(
-					[
-						A2(elm$html$Html$Attributes$style, 'border', '1px solid')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(
-						A2(elm$core$Maybe$withDefault, 'nothing', character.maritalStatus))
-					])),
-				A2(
-				elm$html$Html$td,
-				_List_fromArray(
-					[
-						A2(elm$html$Html$Attributes$style, 'border', '1px solid')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(
-						A2(elm$core$Maybe$withDefault, 'nothing', character.serialNumber))
-					])),
-				A2(
-				elm$html$Html$td,
-				_List_fromArray(
-					[
-						A2(elm$html$Html$Attributes$style, 'border', '1px solid')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(
-						A2(elm$core$Maybe$withDefault, 'nothing', character.hologramActivationDate))
-					])),
-				A2(
-				elm$html$Html$td,
-				_List_fromArray(
-					[
-						A2(elm$html$Html$Attributes$style, 'border', '1px solid')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(
-						A2(elm$core$Maybe$withDefault, 'nothing', character.hologramStatus))
 					]))
 			]));
 };

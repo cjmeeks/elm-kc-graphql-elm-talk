@@ -14,7 +14,7 @@ var schema = buildSchema(`
         name : String!,
         gender : String,
         yearOfBirth : String,
-        monthOfBirth : String,s
+        monthOfBirth : String,
         dayOfBirth : String,
         placeOfBirth : String,
         yearOfDeath : String,
@@ -51,16 +51,13 @@ function fetchCharactersByName(name) {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
     var body = 'name=' + name + '&title=' + name;
-    console.log(body);
     return fetch(`${baseURL}/character/search`, { method: 'POST', body: body, headers: headers }).then(res => res.json());
 }
 
 function getCharactersByName(args) {
     if (args.name) {
-        console.log(args);
         return fetchCharactersByName(args.name).then(json => json.characters);
     } else {
-        console.log("here")
         return [];
     }
 }
