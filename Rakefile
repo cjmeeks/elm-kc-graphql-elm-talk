@@ -1,6 +1,6 @@
 task :start do
-    sh('start cmd /k "npm start"')
-    Rake::Task[:generate_elm].invoke
+    sh('npm start')
+    # Rake::Task[:generate_elm].invoke
     # Rake::Task[:elm].invoke
 end
 
